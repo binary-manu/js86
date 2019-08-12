@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Js86 driver</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script type="text/javascript" src="js86.js"></script>
+        <script type="text/javascript">
+            function doDisasm() {
+                var hex = window.document.getElementById("hex").value;
+                var opcodes = js86.makeByteStreamFromHexString(hex);
+                var formatter = js86.makeIntelSyntaxFormatter();
+                var listing = document.getElementById("listing");
+                listing.innerHTML = "";
+                try {
+                    js86.makeDisassembler().disassembleAll({
+                        opcodes : opcodes,
+                        callback : function(decoded) {
+                            var string = "";
+                            var prop;
+                            for (prop in decoded) {
+                                if (decoded.hasOwnProperty(prop)) {
+                                    string += prop + ":" + decoded[prop].toString(16) + ","
+                                }
+                            }
+                            
+                            listing.innerHTML += formatter.format(decoded).toString() + "\n";
+                        },
+                        errCallback : function(errInfo) {
+                            listing.innerHTML += "db " + errInfo.getByte() + "\n";
+                            errInfo.discard();
+                            return true;
+                        }
+                    });
+                } catch (e) {
+                    alert("Error: " + e.message);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <form name="disasm">
+                <textarea style="width:100%; height: 384px;" id="hex" name="hex"></textarea><br>
+                <button id="disassemble" onclick="doDisasm(); return false;">Disassemble</button>
+            </form>
+            <pre id="listing"></pre>
+        </div>
+    </body>
+</html>
