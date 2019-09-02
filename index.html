@@ -40,9 +40,18 @@
         </script>
     </head>
     <body>
+        <p>
+            Write hex-encoded 16-bit x86 machine code into the form below,
+            then click <em>Disassemble</em>. Bytes must be represented as
+            pairs of hex digits, optionally separated by spaces, such as
+            <code>CD 21</code>. Unrecognized bytes will be shown as <code>db
+            &lt;byte_value&gt;</code>, where the byte value is in decimal
+            form, such as <code>db 113</code>.
+        </p>
         <div>
             <form name="disasm">
-                <textarea style="width:100%; height: 384px;" id="hex" name="hex"></textarea><br>
+                <textarea style="width:100%; height: 384px;" id="hex" name="hex"
+                    placeholder="CD 21"></textarea><br>
                 <button id="disassemble" onclick="doDisasm(); return false;">Disassemble</button>
             </form>
             <pre id="listing"></pre>
