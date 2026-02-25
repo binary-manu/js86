@@ -1,3 +1,5 @@
+**⚠️ Migrated to https://codeberg.org/binary-manu/js86 ⚠️**
+
 # js86, a JavaScript-based 16-bit x86 toy disassembler
 
 This is an educational project I wrote while learning JavaScript. It can decode
